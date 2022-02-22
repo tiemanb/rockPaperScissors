@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //computerPlay
+        function computerPlay(){
+            return ["Rock","Paper","Scissors"][Math.floor(Math.random()*3)];
+        }
+        //playRound(playerSelection, computerSelection){return string;}
+        function playRound(playerSelection, cpu){
+                      const art = [
+`.  _______
+---'   ____)
+      (_____)
+      (_____)
+      (____)
+---.__(___)`, 
+`.   _______
+---'    ____)______
+           _________)
+          ___________)
+         ___________)
+---.______________)`,
+`    _______
+---'   ____)_______
+          _________)
+         |__________ 
+       ______________)
+      (____)
+---.__(___)` 
+];
+
+            switch(playerSelection.toLowerCase()){
+                case("rock"):
+                    return cpu == "Scissors" ? `${art[0]} \nvs\n ${art[2]} \n got eem`: cpu == "Paper" ? `${art[0]} \nvs\n ${art[1]} \n wrekt`: `${art[0]} \nvs\n ${art[0]} \n tie`;
+                case("scissors"):
+                    return `${art[2]} \nvs\n ${cpu == "Scissors" ? `${art[2]} \n tie`: cpu == "Paper" ? `${art[1]} \n got eem`: `${art[0]} \n wrekt`}`;
+                case("paper"):
+                    return `${art[1]} \nvs\n ${cpu == "Scissors" ? `${art[2]} \n wrekt`: cpu == "Paper" ? `${art[1]} \n tie`: `${art[0]} \n noice`}`;
+                default:
+                    return `invalid input\n vs\n ${art[["Rock","Paper","Scissors"].indexOf(cpu)]}\nyou lose`;
+            }
+        }
+        function game(rounds){
+            let playerScore = 0;
+            let cpu = 0;
+            do{
+                playerScore = 0;
+                cpu = 0;
+              for(let i = 1; i<=rounds; i++){
+                let result = playRound(prompt(`round ${i} of ${rounds}: rock,paper,scissors!`),computerPlay());
+              let score = result.split(" ");
+              switch(score[score.length-1]){
+                  case("eem"):
+                    playerScore++;
+                    break;
+                  case("noice"):
+                    playerScore++;
+                    break;
+                  case("wrekt"):
+                    cpu++;
+                    break;
+                  case("lose"):
+                    cpu++;
+                    break;
+              }
+              console.log(`${result}\n${playerScore} W ${cpu} L`);
+                
+            }
+            console.log(`You ${playerScore>cpu?"win":playerScore<cpu?"lost":"tied"}`);
+            }while(prompt("play again? y or n") == "y");
+        }
+        game(5);
+    </script>
+</body>
+</html>
