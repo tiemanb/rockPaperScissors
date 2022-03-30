@@ -47,36 +47,76 @@
                     return `invalid input\n vs\n ${art[["Rock","Paper","Scissors"].indexOf(cpu)]}\nyou lose`;
             }
         }
-        function game(rounds){
-            let playerScore = 0;
-            let cpu = 0;
-            do{
-                playerScore = 0;
-                cpu = 0;
-              for(let i = 1; i<=rounds; i++){
-                let result = playRound(prompt(`round ${i} of ${rounds}: rock,paper,scissors!`),computerPlay());
-              let score = result.split(" ");
-              switch(score[score.length-1]){
-                  case("eem"):
-                    playerScore++;
-                    break;
-                  case("noice"):
-                    playerScore++;
-                    break;
-                  case("wrekt"):
-                    cpu++;
-                    break;
-                  case("lose"):
-                    cpu++;
-                    break;
-              }
-              console.log(`${result}\n${playerScore} W ${cpu} L`);
-                
-            }
-            console.log(`You ${playerScore>cpu?"win":playerScore<cpu?"lost":"tied"}`);
-            }while(prompt("play again? y or n") == "y");
+        //create a heading on top that displays Rock, Paper Scissors by default, then the win loss message after
+        //create 2 paragraphs, position them centered
+        //create 3 buttons, labeled rock paper scissors respectively, position them centered under the paragraphs
+        //add listeners to the buttons that call a function to play a round sending the button's text as the argument
+        //the listener funciton should also change the paragraphs and the heading to appropriate symbols on button click 
+        let heading = document.createElement('h1');
+        let para = document.createElement('pre');
+        let btndiv = document.createElement('div');
+        let btn1= document.createElement('button');
+        let btn2= document.createElement('button');
+        let btn3= document.createElement('button');
+        btndiv.appendChild(btn1);
+        btndiv.appendChild(btn2);
+        btndiv.appendChild(btn3);
+        let uiElements = [heading,para,btndiv];
+        heading.textContent = "Rock, Paper, Scissors!";
+        btn1.textContent = "Rock";
+        btn2.textContent = "Paper";
+        btn3.textContent = "Scissors";
+        uiElements.forEach(e => {
+            e.style.textAlign = "center";
+        });
+        uiElements.forEach(e => document.body.appendChild(e));    
+        let playerScore = 0;
+        let cpu = 0;
+        btn1.onclick=e=>game("rock");
+        btn2.onclick=e=>game("paper");
+        btn3.onclick=e=>game("scissors");
+        
+        //
+        function game(choice){
+          let result = playRound(choice,computerPlay());
+          let score = result.split(" ");
+          let str = "";
+          switch(score[score.length-1]){
+              case("eem"):
+                playerScore++;
+                break;
+              case("noice"):
+                playerScore++;
+                break;
+              case("wrekt"):
+                cpu++;
+                break;
+              case("lose"):
+                cpu++;
+                break;
+          }
+          str = (`${result}\n${playerScore} W ${cpu} L`);
+          para.textContent = str;
         }
-        game(5);
+      /*let result = playRound(prompt(`rock,paper,scissors!`),computerPlay());
+        let score = result.split(" ");
+        switch(score[score.length-1]){
+            case("eem"):
+              playerScore++;
+              break;
+            case("noice"):
+              playerScore++;
+              break;
+            case("wrekt"):
+              cpu++;
+              break;
+            case("lose"):
+              cpu++;
+              break;
+        }
+        console.log(`${result}\n${playerScore} W ${cpu} L`);
+      */ 
+
     </script>
 </body>
 </html>
